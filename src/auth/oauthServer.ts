@@ -94,7 +94,7 @@ export async function runOAuthFlow(): Promise<void> {
           '✅ Login Berhasil!',
           `
             <p>Kamu berhasil terhubung ke Figma.</p>
-            <p><strong>Scope:</strong> ${response.data.scope}</p>
+            <p><strong>Scope:</strong> ${response.data.scope ?? 'file_content:read (granted)'}</p>
             <p>Kamu bisa tutup tab ini dan kembali ke terminal.</p>
             <p style="margin-top:24px; color:#666; font-size:14px;">FigRouter siap digunakan 🚀</p>
           `
