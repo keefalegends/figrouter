@@ -36,8 +36,7 @@ export async function runOAuthFlow(): Promise<void> {
     const app = express();
     let server: http.Server;
 
-    const codeVerifier = generateCodeVerifier();
-    const codeChallenge = generateCodeChallenge(codeVerifier);
+    // State tetap dipakai untuk proteksi CSRF
     const state = generateState();
 
     // ── Callback Route ──────────────────────────────────────────────────────
@@ -76,7 +75,7 @@ export async function runOAuthFlow(): Promise<void> {
           client_secret: config.figma.clientSecret,
           redirect_uri: config.figma.redirectUri,
           code,
-          code_verifier: codeVerifier,
+          // Tidak pakai code_verifier karena Figma OAuth tidak support PKCE
         });
 
         const response = await axios.post<{
@@ -115,18 +114,19 @@ export async function runOAuthFlow(): Promise<void> {
 
     // ── Start Server ────────────────────────────────────────────────────────
     server = app.listen(config.server.authPort, () => {
-      // Build authorization URL
-      const authParams = new URLSearchParams({
-        client_id: config.figma.clientId,
-        redirect_uri: config.figma.redirectUri,
-        scope: config.figma.scopes.join(' '),
-        response_type: 'code',
-        state,
-        code_challenge: codeChallenge,
-        code_challenge_method: 'S256',
-      });
-
-      const authUrl = `${config.figma.authUrl}?${authParams.toString()}`;
+      // Build authorization URL secara manual agar colon ':' dalam scope
+      // TIDAK di-encode menjadi '%3A' (URLSearchParams encode semua karakter khusus,
+      // tapi Figma OAuth memerlukan ':' sebagai literal di scope string).
+      // Figma OAuth endpoint (figma.com/oauth) tidak support PKCE, jadi kita skip.
+      const scopeStr = config.figma.scopes.join(' ');
+      const authUrl = [
+        `${config.figma.authUrl}`,
+        `?client_id=${encodeURIComponent(config.figma.clientId)}`,
+        `&redirect_uri=${encodeURIComponent(config.figma.redirectUri)}`,
+        `&scope=${scopeStr}`,
+        `&response_type=code`,
+        `&state=${state}`,
+      ].join('');
 
       console.log('\n' + '─'.repeat(60));
       console.log('🎨 FigRouter — Login Figma');
