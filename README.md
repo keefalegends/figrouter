@@ -6,24 +6,6 @@ FigRouter memungkinkan AI agent (VS Code, Cursor, Claude, Antigravity, 9router) 
 
 ---
 
-## ✨ Fitur
-
-- 🔐 **OAuth 2.0 + PKCE** — Login aman ke Figma, token otomatis di-refresh
-- 🔌 **MCP Compliant** — Support VS Code, Cursor, Antigravity, 9router, Claude Desktop
-- 🛠️ **8 Tool Figma** — Read files, nodes, components, styles, comments
-- 💾 **Token Terenkripsi** — Token disimpan aman di disk, bukan plain text
-- 🚀 **Ringan** — Node.js process, tidak perlu Docker atau server cloud
-
----
-
-## 📋 Prasyarat
-
-- **Node.js** >= 18.0.0
-- **Akun Figma** (free/pro)
-- **Figma OAuth App** (cara buat: lihat bagian Setup)
-
----
-
 ## ⚡ Quick Start
 
 ```bash
@@ -232,15 +214,6 @@ figrouter/
 
 ---
 
-## 🗺️ Roadmap
-
-- [x] **v0.1.0** — CLI + MCP Server (Fase 1)
-- [ ] **v0.2.0** — Web Dashboard lokal (React UI di localhost:3333/dashboard)
-- [ ] **v0.3.0** — Desktop App (Electron/Tauri dengan system tray)
-- [ ] **v0.4.0** — Export design tokens ke CSS/Tailwind/JSON
-- [ ] **v0.5.0** — Write tools (update Figma variables, post comments batch)
-
----
 
 ## 📝 Changelog
 
