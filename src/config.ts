@@ -29,7 +29,7 @@ export const config = {
       'http://localhost:3334/oauth/callback'
     ),
     authUrl: 'https://www.figma.com/oauth',
-    tokenUrl: 'https://www.figma.com/api/v1/oauth/token',
+    tokenUrl: 'https://www.figma.com/api/oauth/token',
     apiBaseUrl: 'https://api.figma.com/v1',
     // Scopes yang diizinkan untuk third-party app
     // Format baru Figma: https://www.figma.com/developers/api#oauth2
