@@ -32,7 +32,13 @@ export const config = {
     tokenUrl: 'https://www.figma.com/api/v1/oauth/token',
     apiBaseUrl: 'https://api.figma.com/v1',
     // Scopes yang diizinkan untuk third-party app
-    scopes: ['file_read'],
+    // Format baru Figma: https://www.figma.com/developers/api#oauth2
+    scopes: [
+      'file_content:read',
+      'file_metadata:read',
+      'file_comments:read',
+      'file_comments:write',
+    ],
   },
 
   // Server ports
